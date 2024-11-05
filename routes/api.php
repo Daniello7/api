@@ -16,6 +16,6 @@ Route::get('lists/categories', [CategoryController::class, 'list']);
 //Route::post('categories', [CategoryController::class, 'store']);
 //Route::put('categories/{category}', [CategoryController::class, 'update']);
 //Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
-Route::apiResource('categories', ProductController::class);
+Route::apiResource('categories', CategoryController::class);
 
 Route::get('products', [ProductController::class, 'index']);
