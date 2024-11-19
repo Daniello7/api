@@ -7,13 +7,6 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-/**
- * @group Products
- *
- * Managing products
- *
- * @queryParam page int
- */
 class ProductController extends Controller
 {
     public function index()

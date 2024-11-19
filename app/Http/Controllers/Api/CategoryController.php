@@ -12,12 +12,26 @@ use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Group;
 use Symfony\Component\HttpFoundation\Response;
 
-#[Group('Categories', description: 'Managing categories')]
-#[Endpoint('page', 'int', 'The page number')]
 class CategoryController extends Controller
 {
     /**
-     * Get all categories
+     * @OA\Get (
+     *     path="/categories",
+     *     tags={"Categories"},
+     *     summary="Get List all categories",
+     *     @OA\Response(
+     *          response="200",
+     *          description="Succesful operation",
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthenticated",
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Forbidden",
+     *     )
+     * )
      *
      * Getting the list od the categories
      */
@@ -28,7 +42,6 @@ class CategoryController extends Controller
         return CategoryResource::collection(Category::all());
     }
 
-    #[Endpoint('Show category', description: 'Get a category by ID')]
     public function show(Category $category)
     {
         abort_if(!auth()->user()->tokenCan('categories-show'), 403);
@@ -36,12 +49,6 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-//    #[Endpoint('store', description: 'Store a new category')]
-
-    /**
-     * @param StoreCategoryRequest $request
-     * @return CategoryResource
-     */
     public function store(StoreCategoryRequest $request)
     {
         $data = $request->all();
@@ -69,7 +76,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-//      return response()->json(null, Response::HTTP_NO_CONTENT);
         return response()->noContent();
     }
 
