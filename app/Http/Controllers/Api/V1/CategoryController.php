@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Knuckles\Scribe\Attributes\Endpoint;
-use Knuckles\Scribe\Attributes\Group;
-use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
@@ -44,7 +40,7 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        abort_if(!auth()->user()->tokenCan('categories-show'), 403);
+        //abort_if(!auth()->user()->tokenCan('categories-show'), 403);
 
         return new CategoryResource($category);
     }
