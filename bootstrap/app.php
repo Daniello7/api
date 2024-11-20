@@ -8,6 +8,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
+    ->withProviders()
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
         api: __DIR__ . '/../routes/api.php',
@@ -22,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
+        //$middleware->withThrottleApi('products'); // Aplicar global
         $middleware->prependToGroup('api', AlwaysAcceptJson::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
