@@ -16,10 +16,10 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'category_id' => $this->category_id,
             'name' => $this->name,
             'description' => $this->description,
             'price' => number_format($this->price / 100, 2),
+            'category_id' => $this->category_id,
             'category' => CategoryResource::make($this->whenLoaded('category')),
         ];
     }

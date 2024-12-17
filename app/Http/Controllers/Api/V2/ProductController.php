@@ -14,4 +14,11 @@ class ProductController extends Controller
 
         return ProductResource::collection($products);
     }
+
+    public function show($id)
+    {
+        $product = Product::with('category')->findOrFail($id);
+
+        return ProductResource::make($product);
+    }
 }

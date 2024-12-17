@@ -41,9 +41,11 @@ class CategoryController extends Controller
         }));
     }
 
-    public function show(Category $category)
+    public function show($id)
     {
         //abort_if(!auth()->user()->tokenCan('categories-show'), 403);
+
+        $category = Category::findOrFail($id);
 
         return new CategoryResource($category);
     }
