@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Observers\CategoryObserver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -22,8 +24,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public
-    function boot(): void
+    public function boot(): void
     {
         RateLimiter::for('products', function ($request) {
             //return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
@@ -31,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
                 ? Limit::none()
                 : Limit::perMinute(5)->by($request->user()?->id() ?: $request->ip());
         });
+
+        Category::observe(CategoryObserver::class);
     }
 }
