@@ -77,7 +77,6 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-//        dd($category);
         $category->delete();
 
         return response()->noContent();
@@ -88,8 +87,10 @@ class CategoryController extends Controller
         return CategoryResource::collection(Category::all());
     }
 
-    public function products()
+    public function products($id)
     {
-        
+        $category = Category::with('products')->findOrFail($id);
+
+        return new CategoryResource($category);
     }
 }
