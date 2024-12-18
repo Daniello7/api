@@ -52,6 +52,8 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
+//        abort_if(!auth()->user()->tokenCan('categories-store'), 403);
+
         $data = $request->all();
 
         if ($request->hasFile('photo')) {
@@ -75,6 +77,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+//        dd($category);
         $category->delete();
 
         return response()->noContent();
@@ -83,5 +86,10 @@ class CategoryController extends Controller
     public function list()
     {
         return CategoryResource::collection(Category::all());
+    }
+
+    public function products()
+    {
+        
     }
 }
